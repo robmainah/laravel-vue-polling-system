@@ -73,7 +73,8 @@ onMounted(async () => {
                             <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ poll.created_at }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <Link :href="route('polls.edit', poll.id)" class="bg-blue-500 hover:bg-blue-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Edit</Link>
+                            <Link :href="route('polls.questions.index', poll.id)" class="bg-gray-500 hover:bg-gray-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Qustions</Link>
+                            <Link :href="route('polls.edit', poll.id)" class="bg-blue-500 hover:bg-blue-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80 ms-2">Edit</Link>
                             <a :href="route('polls.destroy', poll.id)" @click.prevent="deletePoll(poll.id)" class="bg-red-500 hover:bg-red-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80 ms-2">Delete</a>
                         </td>
                     </tr>

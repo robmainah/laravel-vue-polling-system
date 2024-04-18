@@ -10,7 +10,7 @@ class Poll extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'user_id'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',
