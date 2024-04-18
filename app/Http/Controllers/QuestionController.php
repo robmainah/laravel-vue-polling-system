@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Poll;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\JsonResponse;
 
 class QuestionController extends Controller
 {
@@ -13,42 +15,48 @@ class QuestionController extends Controller
     {
     }
 
-    public function index()
+    public function index(Poll $poll)
     {
-        $questions = $this->questionRepository->getAll();
-        return inertia('Questions/Index', ['questions' => $questions]);
+        if (request()->expectsJson()) {
+            return response()->json($this->questionRepository->getByPoll($poll));
+        }
+
+        return inertia('Questions/Index', ['poll' => $poll]);
     }
 
-    public function create()
+    public function create(Poll $poll)
     {
-        return inertia('Questions/Create');
+        return inertia('Questions/Create', ['poll' => $poll]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Poll $poll): JsonResponse
     {
-        $this->questionRepository->create($request->all());
-        return redirect()->route('questions.index');
+        $this->questionRepository->create($poll, $request->all());
+        return response()->json([], Response::HTTP_CREATED);
     }
 
-    public function show(Question $question)
+    public function show(Poll $poll, Question $question)
     {
         return inertia('Questions/Show', ['question$question' => $question]);
     }
 
-    public function edit(Question $question)
+    public function edit(Poll $poll, Question $question)
     {
-        return inertia('Questions/Edit', ['question$question' => $question]);
+        return inertia('Questions/Edit', [
+            'poll' => $poll,
+            'question' => $question
+        ]);
     }
 
-    public function update(Request $request, Question $question): RedirectResponse
+    public function update(Request $request, Poll $poll, Question $question): JsonResponse
     {
         $this->questionRepository->update($question, $request->all());
-        return redirect()->route('questions.index');
+        return response()->json([], Response::HTTP_OK);
     }
 
-    public function destroy(Question $question): RedirectResponse
+    public function destroy(Poll $poll, Question $question): JsonResponse
     {
         $this->questionRepository->delete($question);
-        return redirect()->route('questions.index');
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

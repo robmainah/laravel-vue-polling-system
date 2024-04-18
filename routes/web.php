@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('polls', PollController::class);
-    Route::resource('polls/{poll}/questions', QuestionController::class);
+    Route::resource('polls.questions', QuestionController::class);
     Route::resource('votes', VoteController::class);
 });
 

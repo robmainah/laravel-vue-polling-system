@@ -4,17 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Question;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Poll;
 
 class QuestionRepository
 {
-    public function getAll(): Collection
+    public function getByPoll(Poll $poll): Collection
     {
-        return Question::all();
+        return $poll->questions()->latest()->get();
     }
 
-    public function create(array $data): Question
+    public function create(Poll $poll, array $data): Question
     {
-        return Question::create($data);
+        return $poll->questions()->create($data);
     }
 
     public function findById(int $id): Question

@@ -18,3 +18,12 @@ export interface IPoll {
     updated_at: string;
 }
 
+export interface IQuestion {
+    id: number;
+    poll_id: number;
+    content: string;
+    created_at: string;
+    updated_at: string;
+    poll: IPoll;
+}
+

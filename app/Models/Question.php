@@ -11,7 +11,12 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['poll_id', 'question_text'];
+    protected $fillable = ['poll_id', 'content'];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
+    ];
 
     public function poll(): BelongsTo
     {
