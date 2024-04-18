@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import axios from 'axios';
 import type {IPoll} from '@/types';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const polls = ref<IPoll[]>([]);
 
