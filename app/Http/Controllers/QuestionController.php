@@ -35,17 +35,10 @@ class QuestionController extends Controller
         return response()->json([], Response::HTTP_CREATED);
     }
 
-    public function show(Poll $poll, Question $question)
-    {
-        return inertia('Questions/Show', ['question$question' => $question]);
-    }
-
     public function edit(Poll $poll, Question $question)
     {
-        return inertia('Questions/Edit', [
-            'poll' => $poll,
-            'question' => $question
-        ]);
+        $question->load('poll');
+        return inertia('Questions/Edit', ['question' => $question]);
     }
 
     public function update(Request $request, Poll $poll, Question $question): JsonResponse

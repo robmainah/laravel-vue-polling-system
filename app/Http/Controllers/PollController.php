@@ -34,11 +34,6 @@ class PollController extends Controller
         return response()->json([], 201);
     }
 
-    public function show(Poll $poll)
-    {
-        return inertia('Polls/Show', ['poll' => $poll]);
-    }
-
     public function edit(Poll $poll)
     {
         return inertia('Polls/Edit', ['poll' => $poll]);

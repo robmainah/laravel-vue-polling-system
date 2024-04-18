@@ -30,11 +30,6 @@ class VoteController extends Controller
         return redirect()->route('votes.index');
     }
 
-    public function show(Vote $vote)
-    {
-        return inertia('Votes/Show', ['vote' => $vote]);
-    }
-
     public function edit(Vote $vote)
     {
         return inertia('Votes/Edit', ['vote' => $vote]);

@@ -18,11 +18,6 @@ class PollRepository
         return $user->polls()->create($data);
     }
 
-    public function findById(int $id): Poll
-    {
-        return Poll::findOrFail($id);
-    }
-
     public function update(Poll $poll, array $data): Poll
     {
         $poll->update($data);

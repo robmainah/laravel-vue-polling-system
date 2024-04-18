@@ -17,11 +17,6 @@ class VoteRepository
         return Vote::create($data);
     }
 
-    public function findById(int $id): Vote
-    {
-        return Vote::findOrFail($id);
-    }
-
     public function update(Vote $vote, array $data): Vote
     {
         $vote->update($data);

@@ -6,7 +6,6 @@ import { ref, defineProps } from 'vue';
 import type { IQuestion, IPoll } from '@/types/index';
 
 const props = defineProps<{
-    poll: IPoll;
     question: IQuestion;
 }>();
 
@@ -15,9 +14,9 @@ const form = ref<Pick<IQuestion, 'content'>>({
 });
 
 const updateQuestion = async (id: number) => {
-    const storeData = await axios.put(`/polls/${props.poll.id}/questions/${id}`, form.value)
+    const storeData = await axios.put(`/polls/${props.question.poll.id}/questions/${id}`, form.value)
     if (storeData.status === 200) {
-        router.get(`/polls/${props.poll.id}/questions`);
+        router.get(`/polls/${props.question.poll.id}/questions`);
     }
 };
 </script>

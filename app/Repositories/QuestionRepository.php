@@ -18,11 +18,6 @@ class QuestionRepository
         return $poll->questions()->create($data);
     }
 
-    public function findById(int $id): Question
-    {
-        return Question::findOrFail($id);
-    }
-
     public function update(Question $question, array $data): Question
     {
         $question->update($data);
