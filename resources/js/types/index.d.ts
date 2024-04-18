@@ -17,3 +17,4 @@ export interface IPoll {
     created_at: string;
     updated_at: string;
 }
+

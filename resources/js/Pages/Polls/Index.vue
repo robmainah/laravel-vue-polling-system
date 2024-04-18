@@ -1,21 +1,34 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
 import axios from 'axios';
 import type {IPoll} from '@/types';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { Link, Head } from '@inertiajs/vue3';
 
 const polls = ref<IPoll[]>([]);
 
-axios.get('/polls')
-    .then(({data}) => {
-        console.log(data);
-        polls.value = data;
+const fetchPolls = async () => {
+    const { data } = await axios.get('/polls');
+    polls.value = data;
+}
+
+const deletePoll = async (id: number) => {
+    const response = await axios.post(`/polls/${id}`, {
+        _method: 'DELETE',
     });
+
+    if (response.status === 204) {
+        fetchPolls();
+    }
+}
+
+onMounted(async () => {
+    await fetchPolls();
+});
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="All Polls" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -44,7 +57,12 @@ axios.get('/polls')
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <tr v-for="(poll, index) in polls" :key="poll.id">
+                    <tr v-if="!polls.length">
+                        <td class="px-6 py-4 whitespace-nowrap" colspan="4">
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-200 text-center">No polls found</div>
+                        </td>
+                    </tr>
+                    <tr v-else v-for="(poll, index) in polls" :key="poll.id">
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900 dark:text-gray-200">{{ index + 1 }}</div>
                         </td>
@@ -55,8 +73,8 @@ axios.get('/polls')
                             <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ poll.created_at }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <Link :href="route('polls.show', 1)" class="bg-blue-500 px-2 py-1 rounded-sm text-white hover:text-indigo-900">View</Link>
-                            <Link :href="route('polls.edit', 1)" class="bg-red-500 px-2 py-1 rounded-sm text-white hover:text-indigo-900 ms-2">Delete</Link>
+                            <Link :href="route('polls.edit', poll.id)" class="bg-blue-500 hover:bg-blue-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Edit</Link>
+                            <a :href="route('polls.destroy', poll.id)" @click.prevent="deletePoll(poll.id)" class="bg-red-500 hover:bg-red-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80 ms-2">Delete</a>
                         </td>
                     </tr>
                 </tbody>

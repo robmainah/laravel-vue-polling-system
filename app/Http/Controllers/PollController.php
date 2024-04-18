@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Poll;
 use App\Repositories\PollRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\PollRequest;
 
 class PollController extends Controller
 {
@@ -13,7 +15,7 @@ class PollController extends Controller
     {
     }
 
-    public function index()
+    public function index(): JsonResponse | \Inertia\Response
     {
         // if request is ajax, return json response
         if (request()->expectsJson()) {
@@ -27,10 +29,10 @@ class PollController extends Controller
         return inertia('Polls/Create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(PollRequest $request): JsonResponse
     {
-        $this->pollRepository->create($request->all());
-        return redirect()->route('polls.index');
+        $this->pollRepository->create($request->safe()->all(), auth()->user());
+        return response()->json([], 201);
     }
 
     public function show(Poll $poll)
@@ -43,15 +45,15 @@ class PollController extends Controller
         return inertia('Polls/Edit', ['poll' => $poll]);
     }
 
-    public function update(Request $request, Poll $poll): RedirectResponse
+    public function update(PollRequest $request, Poll $poll): Response
     {
-        $this->pollRepository->update($poll, $request->all());
-        return redirect()->route('polls.index');
+        $this->pollRepository->update($poll, $request->safe()->all());
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
-    public function destroy(Poll $poll): RedirectResponse
+    public function destroy(Poll $poll): Response
     {
         $this->pollRepository->delete($poll);
-        return redirect()->route('polls.index');
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
