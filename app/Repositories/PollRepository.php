@@ -13,6 +13,11 @@ class PollRepository
         return Poll::latest()->get();
     }
 
+    public function totalCount(): int
+    {
+        return Poll::count();
+    }
+
     public function create(array $data, User $user): Poll
     {
         return $user->polls()->create($data);
