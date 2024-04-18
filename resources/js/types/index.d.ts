@@ -27,3 +27,12 @@ export interface IQuestion {
     poll: IPoll;
 }
 
+export interface IChoice {
+    id: number;
+    question_id: number;
+    content: string;
+    created_at: string;
+    updated_at: string;
+    question: IQuestion;
+}
+

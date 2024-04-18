@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\PollController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ChoiceController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('polls', PollController::class);
     Route::resource('polls.questions', QuestionController::class);
+    Route::resource('questions.choices', ChoiceController::class);
     Route::resource('votes', VoteController::class);
 });
 

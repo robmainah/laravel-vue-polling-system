@@ -3,29 +3,25 @@
 namespace App\Repositories;
 
 use App\Models\Choice;
+use App\Models\Question;
 use Illuminate\Database\Eloquent\Collection;
 
 class ChoiceRepository
 {
-    public function getAll(): Collection
+    public function getByQuestion(Question $question): Collection
     {
-        return Choice::all();
+        return $question->choices()->latest()->get();
     }
 
-    public function create(array $data): Choice
+    public function create(Question $question, array $data): Choice
     {
-        return Choice::create($data);
-    }
-
-    public function findById(int $id): Choice
-    {
-        return Choice::findOrFail($id);
+        return $question->choices()->create($data);
     }
 
     public function update(Choice $choice, array $data): Choice
     {
         $choice->update($data);
-        return $choice;
+        return $choice->refresh();
     }
 
     public function delete(Choice $choice): void

@@ -11,7 +11,12 @@ class Choice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['question_id', 'choice_text'];
+    protected $fillable = ['question_id', 'content'];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
+    ];
 
     public function question(): BelongsTo
     {

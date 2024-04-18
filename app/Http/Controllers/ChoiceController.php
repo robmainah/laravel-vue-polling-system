@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Choice;
 use App\Repositories\ChoiceRepository;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Question;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\ChoiceRequest;
 
 class ChoiceController extends Controller
 {
@@ -13,42 +15,41 @@ class ChoiceController extends Controller
     {
     }
 
-    public function index()
+    public function index(Question $question): \Inertia\Response|JsonResponse
     {
-        $choices = $this->choiceRepository->getAll();
-        return inertia('Choices/Index', ['choices' => $choices]);
+        if (request()->wantsJson()) {
+            return response()->json($this->choiceRepository->getByQuestion($question));
+        }
+
+        return inertia('Choices/Index', ['question' => $question]);
     }
 
-    public function create()
+    public function create(Question $question): \Inertia\Response
     {
-        return inertia('Choices/Create');
+        return inertia('Choices/Create', ['question' => $question]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(ChoiceRequest $request, Question $question): JsonResponse
     {
-        $this->choiceRepository->create($request->all());
-        return redirect()->route('choices.index');
+        $this->choiceRepository->create($question, $request->all());
+        return response()->json([], Response::HTTP_CREATED);
     }
 
-    public function show(Choice $choice)
+    public function edit(Question $question, Choice $choice)
     {
-        return inertia('Choices/Show', ['choice' => $choice]);
-    }
-
-    public function edit(Choice $choice)
-    {
+        $choice->load('question');
         return inertia('Choices/Edit', ['choice' => $choice]);
     }
 
-    public function update(Request $request, Choice $choice): RedirectResponse
+    public function update(ChoiceRequest $request, Question $question, Choice $choice): JsonResponse
     {
         $this->choiceRepository->update($choice, $request->all());
-        return redirect()->route('choices.index');
+        return response()->json([], Response::HTTP_OK);
     }
 
-    public function destroy(Choice $choice): RedirectResponse
+    public function destroy(Question $question, Choice $choice): JsonResponse
     {
         $this->choiceRepository->delete($choice);
-        return redirect()->route('choices.index');
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
