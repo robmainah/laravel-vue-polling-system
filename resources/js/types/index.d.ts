@@ -10,3 +10,10 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
 };
+
+export interface IPoll {
+    id: number;
+    title: string;
+    created_at: string;
+    updated_at: string;
+}

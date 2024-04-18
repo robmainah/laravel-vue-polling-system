@@ -15,8 +15,11 @@ class PollController extends Controller
 
     public function index()
     {
-        $polls = $this->pollRepository->getAll();
-        return inertia('Polls/Index', ['polls' => $polls]);
+        // if request is ajax, return json response
+        if (request()->expectsJson()) {
+            return response()->json($this->pollRepository->getAll());
+        }
+        return inertia('Polls/Index');
     }
 
     public function create()

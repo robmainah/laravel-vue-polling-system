@@ -12,6 +12,11 @@ class Poll extends Model
 
     protected $fillable = ['title', 'description'];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
+    ];
+
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);
