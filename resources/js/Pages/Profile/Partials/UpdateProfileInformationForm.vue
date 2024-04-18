@@ -6,8 +6,8 @@ import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 defineProps<{
-    mustVerifyEmail?: Boolean;
-    status?: String;
+    mustVerifyEmail?: boolean;
+    status?: string;
 }>();
 
 const user = usePage().props.auth.user;
@@ -28,15 +28,15 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form class="mt-6 space-y-6" @submit.prevent="form.patch(route('profile.update'))">
             <div>
                 <InputLabel for="name" value="Name" />
 
                 <TextInput
                     id="name"
+                    v-model="form.name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
                     required
                     autofocus
                     autocomplete="name"
@@ -50,9 +50,9 @@ const form = useForm({
 
                 <TextInput
                     id="email"
+                    v-model="form.email"
                     type="email"
                     class="mt-1 block w-full"
-                    v-model="form.email"
                     required
                     autocomplete="username"
                 />
@@ -85,10 +85,10 @@ const form = useForm({
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
                 <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
+                    enterActiveClass="transition ease-in-out"
+                    enterFromClass="opacity-0"
+                    leaveActiveClass="transition ease-in-out"
+                    leaveToClass="opacity-0"
                 >
                     <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
                 </Transition>

@@ -45,7 +45,7 @@ const updatePassword = () => {
             </p>
         </header>
 
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form class="mt-6 space-y-6" @submit.prevent="updatePassword">
             <div>
                 <InputLabel for="current_password" value="Current Password" />
 
@@ -94,10 +94,10 @@ const updatePassword = () => {
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
                 <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
+                    enterActiveClass="transition ease-in-out"
+                    enterFromClass="opacity-0"
+                    leaveActiveClass="transition ease-in-out"
+                    leaveToClass="opacity-0"
                 >
                     <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
                 </Transition>
