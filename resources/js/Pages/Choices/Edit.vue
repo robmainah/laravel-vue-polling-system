@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref, defineProps } from 'vue';
-import type { IChoice, IPoll } from '@/types/index';
+import type { IChoice } from '@/types/index';
 
 const props = defineProps<{
     choice: IChoice;

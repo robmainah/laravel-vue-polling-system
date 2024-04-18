@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref, defineProps } from 'vue';
-import type { IQuestion, IPoll } from '@/types/index';
+import type { IQuestion } from '@/types/index';
 
 const props = defineProps<{
     question: IQuestion;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import type { IPoll } from '@/types/index';
 import { ref, defineProps } from 'vue';
