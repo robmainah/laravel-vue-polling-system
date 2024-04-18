@@ -3,13 +3,13 @@
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude(
-        array(
+        [
             'vendor',
             'storage',
             'node_modules',
             'bootstrap',
             'docker',
-        )
+        ]
     )
     ->name("*.php")
     ->notName("server.php")
@@ -20,32 +20,32 @@ $finder = PhpCsFixer\Finder::create()
 
 return (new PhpCsFixer\Config())
     ->setFinder($finder)
-    ->setRules(array(
+    ->setRules([
         '@PSR12' => true,
         'array_indentation' => true,
-        'array_syntax' => array('syntax' => 'short'),
+        'array_syntax' => ['syntax' => 'short'],
         'combine_consecutive_unsets' => true,
-        'class_attributes_separation' => array('elements' => array('method' => 'one', )),
+        'class_attributes_separation' => ['elements' => ['method' => 'one', ]],
         'multiline_whitespace_before_semicolons' => false,
         'single_quote' => false,
 
-        'binary_operator_spaces' => array(
-            'operators' => array(
+        'binary_operator_spaces' => [
+            'operators' => [
                 // '=>' => 'align',
                 // '=' => 'align'
-            )
-        ),
+            ]
+        ],
         // 'blank_line_after_opening_tag' => true,
         // 'blank_line_before_statement' => true,
-        'braces' => array(
+        'braces' => [
             'allow_single_line_closure' => true,
-        ),
+        ],
         // 'cast_spaces' => true,
         // 'class_definition' => array('singleLine' => true),
-        'concat_space' => array('spacing' => 'one'),
+        'concat_space' => ['spacing' => 'one'],
         'declare_equal_normalize' => true,
         'function_typehint_space' => true,
-        'single_line_comment_style' => array('comment_types' => array('hash')),
+        'single_line_comment_style' => ['comment_types' => ['hash']],
         'include' => true,
         'lowercase_cast' => true,
         // 'native_function_casing' => true,
@@ -56,16 +56,16 @@ return (new PhpCsFixer\Config())
         // 'no_empty_comment' => true,
         // 'no_empty_phpdoc' => true,
         // 'no_empty_statement' => true,
-        'no_extra_blank_lines' => array(
-            'tokens' => array(
+        'no_extra_blank_lines' => [
+            'tokens' => [
                 'curly_brace_block',
                 'extra',
                 // 'parenthesis_brace_block',
                 // 'square_brace_block',
                 'throw',
                 'use',
-            )
-        ),
+            ]
+        ],
         // 'no_leading_import_slash' => true,
         // 'no_leading_namespace_whitespace' => true,
         // 'no_mixed_echo_print' => array('use' => 'echo'),
@@ -115,7 +115,7 @@ return (new PhpCsFixer\Config())
         'whitespace_after_comma_in_array' => true,
         'space_after_semicolon' => true,
         // 'single_blank_line_at_eof' => false
-    ))
+    ])
     // ->setIndent("\t")
     ->setLineEnding("\n")
 ;
