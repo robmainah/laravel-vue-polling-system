@@ -12,6 +12,6 @@ class DashboardController extends Controller
 
     public function index(): \Inertia\Response
     {
-        return inertia('Dashboard', ['polls' => $this->pollRepository->totalCount()]);
+        return inertia('Dashboard', ['polls' => $this->pollRepository->totalCount(auth()->user())]);
     }
 }

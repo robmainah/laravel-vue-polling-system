@@ -8,14 +8,14 @@ use App\Models\User;
 
 class PollRepository
 {
-    public function getAll(): Collection
+    public function getByUser(User $user): Collection
     {
-        return Poll::latest()->get();
+        return $user->polls()->latest()->get();
     }
 
-    public function totalCount(): int
+    public function totalCount(User $user): int
     {
-        return Poll::count();
+        return $user->polls()->count();
     }
 
     public function create(array $data, User $user): Poll

@@ -17,7 +17,7 @@ class PollController extends Controller
     public function index(): JsonResponse | \Inertia\Response
     {
         if (request()->expectsJson()) {
-            return response()->json($this->pollRepository->getAll());
+            return response()->json($this->pollRepository->getByUser(auth()->user()));
         }
 
         return inertia('Polls/Index');
