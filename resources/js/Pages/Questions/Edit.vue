@@ -3,10 +3,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref, defineProps } from 'vue';
-import type { IQuestion } from '@/types/index';
+import type { IPoll, IQuestion } from '@/types/index';
 
 const props = defineProps<{
-    question: IQuestion;
+    question: IQuestion & { poll: IPoll };
 }>();
 
 const form = ref<Pick<IQuestion, 'content'>>({

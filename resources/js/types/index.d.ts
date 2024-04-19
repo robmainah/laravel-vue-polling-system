@@ -24,7 +24,6 @@ export interface IQuestion {
     content: string;
     created_at: string;
     updated_at: string;
-    poll: IPoll;
 }
 
 export interface IChoice {
@@ -33,6 +32,4 @@ export interface IChoice {
     content: string;
     created_at: string;
     updated_at: string;
-    question: IQuestion;
 }
-
