@@ -21,6 +21,11 @@ const fetchQuestions = async () => {
 }
 
 onMounted(async () => {
+    Echo.private(`polls.${props.poll.id}`)
+        .listen('VotesUpdated', async (e: any) => {
+            await fetchQuestions();
+        });
+
     await fetchQuestions();
 });
 </script>

@@ -9,6 +9,7 @@ use App\Models\Poll;
 use App\Repositories\QuestionRepository;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use App\Events\VotesUpdated;
 
 class VoteController extends Controller
 {
@@ -48,6 +49,8 @@ class VoteController extends Controller
     public function store(Request $request, Poll $poll): JsonResponse
     {
         $this->storeVoteService->store(auth()->user(), $request->all());
+        event(new VotesUpdated($poll));
+
         return response()->json([], Response::HTTP_CREATED);
     }
 }

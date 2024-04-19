@@ -4,7 +4,6 @@ namespace App\Services\Votes;
 
 use App\Repositories\VoteRepository;
 use App\Models\User;
-use App\Models\Vote;
 
 class StoreVoteService
 {
@@ -13,20 +12,20 @@ class StoreVoteService
     ) {
     }
 
-    public function store(User $user, array $data): ?Vote
+    public function store(User $user, array $data): void
     {
         $newData = collect($data)
             ->reject(fn ($value) => $value === null)
-            ->mapWithKeys(fn ($value, $key) => [
+            ->map(fn ($value, $key) => [
                 'question_id' => (int) \Str::after($key, 'question_'),
                 'choice_id' => $value
             ])
-            ->all();
+            ->values();
 
         if (empty($newData)) {
-            return null;
+            return;
         }
 
-        return $this->voteRepository->create($user, $newData);
+        $newData->each(fn ($value, $key) => $this->voteRepository->create($user, $value));
     }
 }
