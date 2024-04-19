@@ -7,10 +7,10 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Poll;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class VotesUpdated implements ShouldBroadcast
+class VotesUpdated implements ShouldBroadcastNow
 {
     use Dispatchable;
     use InteractsWithSockets;
