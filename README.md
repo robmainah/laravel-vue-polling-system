@@ -15,6 +15,10 @@ For testing purpose no need to install npm dependencies or run `npm run build` s
 However, to check code changes install the dependencies.
 Run `npm install` and `npm run dev` or `npm run build`
 
+## Run migrations
+1. Create your database and add that to the `.env` file
+2. Run `php artisan migrate` to create the needed tables
+
 ## Run the application
 Run `php artisan serve`
 

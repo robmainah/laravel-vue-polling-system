@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +19,9 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     // redirect questions to polls
     Route::redirect('/', '/polls');
+    Route::redirect('/dashboard', '/polls')->name('dashboard');
     Route::redirect('/questions', '/polls');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
