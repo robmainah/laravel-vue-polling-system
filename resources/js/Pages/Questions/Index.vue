@@ -5,11 +5,13 @@ import { ref, onMounted, defineProps } from 'vue';
 import { Link, Head } from '@inertiajs/vue3';
 import type { IQuestion, IPoll } from '@/types/index';
 
+type QuestionType = IQuestion & { choices_count: number };
+
 const props = defineProps<{
     poll: IPoll;
 }>();
 
-const questions = ref<IQuestion[]>([]);
+const questions = ref<QuestionType[]>([]);
 
 const fetchQuestions = async () => {
     const { data } = await axios.get(`/polls/${props.poll.id}/questions`);
@@ -53,6 +55,9 @@ onMounted(async () => {
                             Content
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            Total Choices
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             Date Created
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -72,6 +77,9 @@ onMounted(async () => {
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ question.content }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ question.choices_count }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ question.created_at }}</div>

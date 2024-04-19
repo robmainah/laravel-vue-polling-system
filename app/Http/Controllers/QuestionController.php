@@ -18,7 +18,10 @@ class QuestionController extends Controller
     public function index(Poll $poll)
     {
         if (request()->expectsJson()) {
-            return response()->json($this->questionRepository->getByPoll($poll));
+            $questions = $this->questionRepository->getByPoll($poll);
+            $questions->loadCount('choices');
+
+            return response()->json($questions);
         }
 
         return inertia('Questions/Index', ['poll' => $poll]);
