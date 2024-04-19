@@ -51,7 +51,10 @@ onMounted(async () => {
         </template>
         <div class="w-full p-4">
             <div class="dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg py-6 px-4">
-                <form @submit.prevent="handleSubmit">
+                <div v-if="!questions.length">
+                    <p class="flex justify-center text-red-500">Please first create questions and choices</p>
+                </div>
+                <form v-else @submit.prevent="handleSubmit">
                     <div class="grid">
                         <div v-for="(question, index) in questions" :key="question.id" class="flex flex-col mb-8">
                             <label for="content" class="mb-2 text-white/80 capitalize">{{ index + 1 }}) {{ question.content }}</label>

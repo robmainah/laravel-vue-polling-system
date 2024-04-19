@@ -26,7 +26,7 @@ class PollController extends Controller
         return inertia('Polls/Index');
     }
 
-    public function create()
+    public function create(): \Inertia\Response
     {
         return inertia('Polls/Create');
     }
@@ -37,7 +37,7 @@ class PollController extends Controller
         return response()->json([], 201);
     }
 
-    public function edit(Poll $poll)
+    public function edit(Poll $poll): \Inertia\Response
     {
         return inertia('Polls/Edit', ['poll' => $poll]);
     }

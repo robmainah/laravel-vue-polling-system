@@ -35,7 +35,7 @@ class ChoiceController extends Controller
         return response()->json([], Response::HTTP_CREATED);
     }
 
-    public function edit(Question $question, Choice $choice)
+    public function edit(Question $question, Choice $choice): \Inertia\Response
     {
         $choice->load('question');
         return inertia('Choices/Edit', ['choice' => $choice]);

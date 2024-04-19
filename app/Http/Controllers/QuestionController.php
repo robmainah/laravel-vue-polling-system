@@ -15,7 +15,7 @@ class QuestionController extends Controller
     {
     }
 
-    public function index(Poll $poll)
+    public function index(Poll $poll): \Inertia\Response | JsonResponse
     {
         if (request()->expectsJson()) {
             $questions = $this->questionRepository->getByPoll($poll);
@@ -27,7 +27,7 @@ class QuestionController extends Controller
         return inertia('Questions/Index', ['poll' => $poll]);
     }
 
-    public function create(Poll $poll)
+    public function create(Poll $poll): \Inertia\Response
     {
         return inertia('Questions/Create', ['poll' => $poll]);
     }
@@ -38,7 +38,7 @@ class QuestionController extends Controller
         return response()->json([], Response::HTTP_CREATED);
     }
 
-    public function edit(Poll $poll, Question $question)
+    public function edit(Poll $poll, Question $question): \Inertia\Response
     {
         $question->load('poll');
         return inertia('Questions/Edit', ['question' => $question]);
