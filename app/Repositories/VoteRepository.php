@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Vote;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\User;
 
 class VoteRepository
 {
@@ -12,9 +13,9 @@ class VoteRepository
         return Vote::all();
     }
 
-    public function create(array $data): Vote
+    public function create(User $user, array $data): Vote
     {
-        return Vote::create($data);
+        return $user->votes()->create($data);
     }
 
     public function update(Vote $vote, array $data): Vote

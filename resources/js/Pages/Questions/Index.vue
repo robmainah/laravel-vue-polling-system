@@ -84,10 +84,11 @@ onMounted(async () => {
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ question.created_at }}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <Link :href="route('questions.choices.index', question.id)" class="bg-gray-500 hover:bg-gray-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Choices</Link>
-                            <Link :href="route('polls.questions.edit', [poll.id, question.id])" class="bg-blue-500 hover:bg-blue-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80 ms-2">Edit</Link>
-                            <a :href="route('polls.questions.destroy', [poll.id, question.id])" @click.prevent="deleteQuestion(question.id)" class="bg-red-500 hover:bg-red-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80 ms-2">Delete</a>
+                        <td class="px-6 py-2 whitespace-nowrap flex gap-2">
+                            <Link :href="route('polls.votes.index', poll.id)" class="bg-green-500 hover:bg-green-500/80 px-2 py-0.5 rounded-sm text-white hover:text-white/80">See Votes</Link>
+                            <Link :href="route('questions.choices.index', question.id)" class="bg-gray-500 hover:bg-gray-500/80 px-2 py-0.5 rounded-sm text-white hover:text-white/80">Choices</Link>
+                            <Link :href="route('polls.questions.edit', [poll.id, question.id])" class="bg-blue-500 hover:bg-blue-500/80 px-2 py-0.5 rounded-sm text-white hover:text-white/80">Edit</Link>
+                            <a :href="route('polls.questions.destroy', [poll.id, question.id])" @click.prevent="deleteQuestion(question.id)" class="bg-red-500 hover:bg-red-500/80 px-2 py-0.5 rounded-sm text-white hover:text-white/80">Delete</a>
                         </td>
                     </tr>
                 </tbody>

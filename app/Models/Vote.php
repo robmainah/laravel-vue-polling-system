@@ -10,10 +10,15 @@ class Vote extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['choice_id', 'user_id'];
+    protected $fillable = ['choice_id', 'question_id', 'user_id'];
 
     public function choice(): BelongsTo
     {
         return $this->belongsTo(Choice::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

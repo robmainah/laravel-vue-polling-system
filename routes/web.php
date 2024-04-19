@@ -22,12 +22,16 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // redirect questions to polls
+    Route::redirect('/questions', '/polls');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('polls', PollController::class);
     Route::resource('polls.questions', QuestionController::class);
+    Route::resource('polls.votes', VoteController::class);
     Route::resource('questions.choices', ChoiceController::class);
     Route::resource('votes', VoteController::class);
 });

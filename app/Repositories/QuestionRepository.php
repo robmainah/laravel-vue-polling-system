@@ -10,7 +10,7 @@ class QuestionRepository
 {
     public function getByPoll(Poll $poll): Collection
     {
-        return $poll->questions()->latest()->get();
+        return $poll->questions()->get();
     }
 
     public function create(Poll $poll, array $data): Question

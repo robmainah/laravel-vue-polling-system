@@ -5,7 +5,9 @@ import type {IPoll} from '@/types';
 import { ref, onMounted } from 'vue';
 import { Link, Head } from '@inertiajs/vue3';
 
-const polls = ref<IPoll[]>([]);
+type PollType = IPoll & { questions_count: number };
+
+const polls = ref<PollType[]>([]);
 
 const fetchPolls = async () => {
     const { data } = await axios.get('/polls');
@@ -49,6 +51,9 @@ onMounted(async () => {
                             Description
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            Total Questions
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             Date Created
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -70,12 +75,16 @@ onMounted(async () => {
                             <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ poll.title }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ poll.created_at }}</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ poll.questions_count }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{ poll.created_at }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap flex gap-2.5">
+                            <Link :href="route('polls.votes.create', poll.id)" class="bg-green-500 hover:bg-gray-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Vote</Link>
                             <Link :href="route('polls.questions.index', poll.id)" class="bg-gray-500 hover:bg-gray-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Qustions</Link>
-                            <Link :href="route('polls.edit', poll.id)" class="bg-blue-500 hover:bg-blue-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80 ms-2">Edit</Link>
-                            <a :href="route('polls.destroy', poll.id)" @click.prevent="deletePoll(poll.id)" class="bg-red-500 hover:bg-red-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80 ms-2">Delete</a>
+                            <Link :href="route('polls.edit', poll.id)" class="bg-blue-500 hover:bg-blue-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Edit</Link>
+                            <a :href="route('polls.destroy', poll.id)" @click.prevent="deletePoll(poll.id)" class="bg-red-500 hover:bg-red-500/80 px-2 py-1 rounded-sm text-white hover:text-white/80">Delete</a>
                         </td>
                     </tr>
                 </tbody>
