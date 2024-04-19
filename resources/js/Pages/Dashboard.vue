@@ -21,7 +21,6 @@ defineProps<{
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100 flex gap-10 justify-center">
                         <Link :href="route('polls.index')" class="py-10 px-10 hover:bg-gray-500 bg-blue-500 text-2xl">Polls ({{ polls }})</Link>
-                        <Link :href="route('votes.index')" class="py-10 px-10 hover:bg-gray-500 bg-green-500 text-2xl">Votes</Link>
                     </div>
                 </div>
             </div>

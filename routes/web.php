@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // redirect questions to polls
+    Route::redirect('/', '/polls');
     Route::redirect('/questions', '/polls');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
