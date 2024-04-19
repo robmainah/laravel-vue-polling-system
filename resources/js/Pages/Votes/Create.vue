@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
-import { ref, defineProps, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import type { IQuestion, IPoll, IChoice } from '@/types/index';
 
 type QuestionType = IQuestion & { choices: IChoice[] };
